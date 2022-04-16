@@ -1,3 +1,5 @@
+#import bs4
+import requests
 from tools import is_prime
 
 
@@ -12,3 +14,13 @@ def next_prime(update, context):
         while not is_prime(x):
             x += 1
         update.message.reply_text(f'OTBET: {x}')
+
+
+def weather(update, context):
+    x = context.args
+    if len(x) == 1:
+        URL = "https://wttr.in/" + x[0] + '?0T'
+        HTML = requests.get(URL).text
+        update.message.reply_text(f"<pre>{HTML}</pre>", parse_mode='HTML')
+    else:
+        update.message.reply_text(f'НЕПРАВИЛЬНО!')
